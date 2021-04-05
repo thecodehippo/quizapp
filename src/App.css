@@ -1,0 +1,35 @@
+.board td {
+  height: 50px;
+  width: 50px;
+  border: 1px solid black;
+}
+
+.board {
+  margin-top: 50px;
+}
+
+.wrapper {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.questionBox {
+  border: 1px solid black;
+  height: auto;
+  width: 60vw;
+  margin-top: 50px;
+}
+
+#question {
+  margin: 10px;
+}
+
+#answer {
+  margin: 10px;
+}
+
+#answer button {
+  margin: 5px;
+}
