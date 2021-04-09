@@ -5,7 +5,7 @@
 }
 
 .board {
-  margin-top: 50px;
+  margin: 20px;
 }
 
 .wrapper {
@@ -18,18 +18,40 @@
 .questionBox {
   border: 1px solid black;
   height: auto;
-  width: 60vw;
-  margin-top: 50px;
+  width: 60%;
 }
 
-#question {
+.question {
   margin: 10px;
 }
 
-#answer {
+.answer {
   margin: 10px;
+  display: flex;
+  flex-direction: column;
+  width: auto;
 }
 
-#answer button {
-  margin: 5px;
+.myButton {
+	box-shadow:inset 0px 1px 0px 0px #54a3f7;
+	background-color:#007dc1;
+	border-radius:3px;
+	border:1px solid #124d77;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size: 15px;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #154682;
+  margin: 5px 0;
+}
+
+@media screen and (max-width: 767px) {
+  .questionBox {
+    border: 1px solid black;
+    height: auto;
+    width: 90%;
+  }
 }
