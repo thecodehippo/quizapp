@@ -7,17 +7,32 @@ import AnswersBox from './AnswersBox';
 import { createStore } from 'redux';
 
 export const Quiz = () => {
-    // create redux store for holding answers
+    // create redux store
     const initialState = [];
-    const reducer = (state = initialState, action) => {
+    const answersReducer = (state = initialState, action) => {
         switch (action.type) {
-            case 'answer/correct':
-                return [ ...state, action.payload]
+            case 'addAnswer':
+                return [ ...state, action.payload ];
             default:
                 return state;
         }
     }
-    const store = createStore(reducer);
+
+    const store = createStore(answersReducer);
+
+    const actionCreator = (id, result) => {
+        return {
+            type: 'addAnswer',
+            payload: {
+                id: id,
+                result: result
+            }
+        }
+    }
+
+    const addToStore = () => {
+        store.dispatch(actionCreator(1, 'correct'));
+    }
 
     // Information to reach API
     const url = "https://opentdb.com/api.php";
@@ -26,7 +41,6 @@ export const Quiz = () => {
     // Fetching Data State
     const [data, setData] = useState();
     const [isLoaded, setIsLoaded] = useState(false);
-    const [answerStatus, setAnswerStatus] = useState('');
 
     async function fetchData() {
         await fetch(url+queryParams)
@@ -45,6 +59,7 @@ export const Quiz = () => {
 
     // allow setting an active question
     const [activeQuestion, setActiveQuestion] = useState();
+    const [answerStatus, setAnswerStatus] = useState('');
 
     const handleClick = (id) => {
         setActiveQuestion(id);
@@ -54,19 +69,6 @@ export const Quiz = () => {
     const handleAnswer = (res) => {
         setAnswerStatus(res);
     };
-
-    const addCorrectAnswer = (i) => {
-        store.dispatch({
-            type: 'answer/correct',
-            payload: i
-        })
-    }
-
-    const logStore = () => {
-        console.log(store.getState());
-    }
-
-    store.subscribe(logStore);
  
     // logic to handle whether to display loading, welcome, question or answer box
     const decideBox = () => {
@@ -81,7 +83,7 @@ export const Quiz = () => {
                         <QuestionBox answerStatus={answerStatus} activeQuestion={data.results[activeQuestion].question} />
                         <AnswersBox 
                             activeQuestion={activeQuestion}
-                            addCorrectAnswer={addCorrectAnswer}
+                            addToStore={addToStore}
                             handleAnswer={handleAnswer}
                             answerStatus={answerStatus}
                             correctAnswer={data.results[activeQuestion].correct_answer} 
@@ -98,7 +100,8 @@ export const Quiz = () => {
             <Header />
             <Board onClick={handleClick} />
             {decideBox()}
-            <button onClick={() => console.log(store.getState())}>click me</button>
+            <button onClick={addToStore}>Dispatch correct answer to store manually with id 1</button>
+            <button onClick={() => console.log(store.getState())}>Console Log State</button>
         </div>
     )
 }
