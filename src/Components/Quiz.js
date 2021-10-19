@@ -1,38 +1,12 @@
 import React, { useState } from 'react';
-import Header from './Header';
-import Board from './Board';
-import WelcomeBox from './WelcomeBox';
-import QuestionBox from './QuestionBox';
 import AnswersBox from './AnswersBox';
-import { createStore } from 'redux';
+import Board from './Board';
+import Header from './Header';
+import QuestionBox from './QuestionBox';
+import WelcomeBox from './WelcomeBox';
+import { addToStore } from '../Containers/Store';
 
 export const Quiz = () => {
-    // create redux store
-    const initialState = [];
-    const answersReducer = (state = initialState, action) => {
-        switch (action.type) {
-            case 'addAnswer':
-                return [ ...state, action.payload ];
-            default:
-                return state;
-        }
-    }
-
-    const store = createStore(answersReducer);
-
-    const actionCreator = (id, result) => {
-        return {
-            type: 'addAnswer',
-            payload: {
-                id: id,
-                result: result
-            }
-        }
-    }
-
-    const addToStore = () => {
-        store.dispatch(actionCreator(1, 'correct'));
-    }
 
     // Information to reach API
     const url = "https://opentdb.com/api.php";
@@ -100,8 +74,6 @@ export const Quiz = () => {
             <Header />
             <Board onClick={handleClick} />
             {decideBox()}
-            <button onClick={addToStore}>Dispatch correct answer to store manually with id 1</button>
-            <button onClick={() => console.log(store.getState())}>Console Log State</button>
         </div>
     )
 }

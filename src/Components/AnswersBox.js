@@ -33,14 +33,13 @@ const AnswersBox = (props) => {
         else return <h1>{props.answerStatus}</h1>
     }
 
-    // check answer on click and pass up to parent to set in state
     const checkAnswer = (e) => {
         if (e.target.innerHTML === ca) {
             props.handleAnswer('Correct!');
-            props.addToStore(2, 'correct'); // THIS DOESN'T WORK WHEN INSIDE THIS FUNCTION
+            props.addToStore(props.activeQuestion, true);
         } else {
             props.handleAnswer('Wrong!')
-            props.addToStore(3, 'wrong'); // THIS DOESN'T WORK WHEN INSIDE THIS FUNCTION
+            props.addToStore(props.activeQuestion, false);
         }
     }
 
@@ -48,7 +47,6 @@ const AnswersBox = (props) => {
     return (
         <div className="answer">
             {buildAnswers()}
-            <button onClick={props.addToStore}>This button will add to store using props from the child component</button>
         </div>
     )
 }
