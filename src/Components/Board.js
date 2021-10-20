@@ -1,12 +1,10 @@
 import React from 'react';
-import { getState } from '../Data/Store';
 
 const Board = (props) => {
     // variables
     const boardSize = 6;
     let rows = [];
     let count = 0
-    const result = getState();
 
     // utility method
     const getNumber = () => {
