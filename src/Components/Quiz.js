@@ -4,7 +4,7 @@ import Board from './Board';
 import Header from './Header';
 import QuestionBox from './QuestionBox';
 import WelcomeBox from './WelcomeBox';
-import { addToStore } from '../Containers/Store';
+import { addToStore, getState } from '../Data/Store';
 
 export const Quiz = () => {
 
@@ -69,9 +69,15 @@ export const Quiz = () => {
         }
     }
 
+    const showCorrectAnswers = () => {
+        const state = getState();
+        return state.correctIds.length > 0 ? <p>Number of correct answers {state.correctIds.length}</p> : <p></p>
+    }
+
     return (
         <div className="wrapper">
             <Header />
+            {showCorrectAnswers()}
             <Board onClick={handleClick} />
             {decideBox()}
         </div>

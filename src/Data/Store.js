@@ -45,7 +45,10 @@ const actionCreator = (id, result) => {
 
 export const addToStore = (questionNumber, result) => {
     store.dispatch(actionCreator(questionNumber, result));
-    console.log(store.getState());
+}
+
+export const getState = () => {
+    return store.getState();
 }
 
 
